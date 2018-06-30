@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_mrpbomstructure_indo" inherit_id="mrp.report_mrpbomstructure">
+            <data>
+                <xpath expr="//thead//th[last()]" position="after">
+                    <th>Sale Delay</th>
+                    <th>Qty on hand</th>
+                    <th>Qty available</th>
+                    <th>Free Stock</th>
+                </xpath>
+                <xpath expr="//span[@t-field='o.code']/.." position="after">
+                    <td><span t-field="o.product_id.sale_delay"/></td>
+                    <td><span t-field="o.product_id.qty_available"/></td>
+                    <td><span t-field="o.product_id.virtual_available"/></td>
+                    <td><span t-field="o.product_id.free_stock"/></td>
+                </xpath>
+                <xpath expr="//tbody//tr[last()]/td[last()]" position="after">
+                    <td><span t-esc="l['sale_delay']"/></td>
+                    <td><span t-esc="l['qty_available']"/></td>
+                    <td><span t-esc="l['virtual_available']"/></td>
+                    <td><span t-esc="l['free_stock']"/></td>
+                </xpath>
+            </data>
+        </template>
+    </data>
+</openerp>

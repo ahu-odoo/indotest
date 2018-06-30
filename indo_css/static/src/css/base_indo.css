@@ -1,0 +1,39 @@
+.openerp button.oe_highlight {
+  background-color: #2596e2;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#3ba0e5), to(#1c88d1));
+  background-image: -webkit-linear-gradient(top, #3ba0e5, #1c88d1);
+  background-image: -moz-linear-gradient(top, #3ba0e5, #1c88d1);
+  background-image: -ms-linear-gradient(top, #3ba0e5, #1c88d1);
+  background-image: -o-linear-gradient(top, #3ba0e5, #1c88d1);
+  background-image: linear-gradient(to bottom, #3ba0e5, #1c88d1);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+.openerp button.oe_highlight:hover {
+  background-color: #3ca1e5;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#3ba0e5), to(#1c88d1));
+  background-image: -webkit-linear-gradient(top, #3ba0e5, #1c88d1);
+  background-image: -moz-linear-gradient(top, #3ba0e5, #1c88d1);
+  background-image: -ms-linear-gradient(top, #3ba0e5, #1c88d1);
+  background-image: -o-linear-gradient(top, #3ba0e5, #1c88d1);
+  background-image: linear-gradient(to bottom, #3ba0e5, #1c88d1);
+}
+.openerp button.oe_highlight:active {
+  background-color: #48a7e7;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#558ad5), to(#648fd8));
+  background-image: -webkit-linear-gradient(top, #558ad5, #648fd8);
+  background-image: -moz-linear-gradient(top, #558ad5, #648fd8);
+  background-image: -ms-linear-gradient(top, #558ad5, #648fd8);
+  background-image: -o-linear-gradient(top, #558ad5, #648fd8);
+  background-image: linear-gradient(to bottom, #558ad5, #648fd8);
+}
+
+@media (min-width: 1400px) {
+  .modal-lg {
+    width: 1380px;
+  }
+}
+.openerp .oe_form_sheet_width {
+  max-width: 1400px;
+}

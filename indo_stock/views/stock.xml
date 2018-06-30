@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="product_product_report_form">
+            <field name="name">product.product.report.INDO</field>
+            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="priority" eval="20"/>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Sales']" position="after">
+					<page string="Stock Levels">
+                        <group>
+                            <group>
+                                <button name="compute_forecasts" string="Compute Forecasts" type="object" context="{'location_id':12}"/>
+                            </group>
+                            <group>
+                                <field name="stock_treshold"/>
+                                <field name="stock_insufficient"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <label for="stock_level_ids">Stock Levels</label>
+                                <field name="stock_level_ids" nolabel="1" readonly="1">
+                                    <tree colors="red: total_qty &lt; stock_treshold" decoration-danger="(total_qty &gt; stock_treshold)">
+                                        <field name="date"/>
+                                        <field name="qty"/>
+                                        <field name="total_qty"/>
+                                        <field name="picking_id"/>
+                                        <field name="origin"/>
+                                        <field name="overdue"/>
+                                        <field name="stock_treshold" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                        
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='virtual_available']" position="after">
+                    <field name="free_stock" />
+                </xpath>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="stock_picking_force_stock">
+            <field name="name">stock.picking.force.stock.INDO</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="priority" eval="20"/>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                 <xpath expr="//button[@name='action_assign']" position="after">
+                    <button name="action_assign" states="confirmed" string="Check Indo/STOCK availability" type="object" class="oe_highlight" groups="base.group_user" context="{'from_indo_stock_only':True}"/>
+                </xpath>
+            </field>
+        </record> 
+        <record model="ir.ui.view" id="indo_stock.view_stock_enter_transfer_details_inherit">
+            <field name="name">Enter transfer details INDO</field>
+            <field name="inherit_id" ref="stock.view_stock_enter_transfer_details" />
+            <field name="priority" eval="20"/>
+            <field name="model">stock.transfer_details</field>
+            <field name="arch" type="xml">
+                 <xpath expr="//button[@name='do_detailed_transfer']" position="after">
+                    <button name="do_detailed_transfer" string="_Aplly (from Indo/stock)" type="object" class="oe_highlight" context="{'from_indo_stock_only':True}"/>
+                </xpath>
+            </field>
+        </record> 
+    </data>
+</openerp>
