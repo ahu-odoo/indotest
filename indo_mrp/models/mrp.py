@@ -1,14 +1,15 @@
 import time
-import openerp.addons.decimal_precision as dp
-from collections import OrderedDict
-from openerp.osv import fields, osv, orm
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
-from openerp.tools import float_compare, float_is_zero
-from openerp.tools.translate import _
-from openerp import tools, SUPERUSER_ID
-from openerp.addons.product import _common
 
-class mrp_production(osv.osv):
+import odoo.addons.decimal_precision as dp
+from collections import OrderedDict
+from odoo import api, fields, models, _
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
+from odoo.tools import float_compare, float_is_zero
+from odoo.tools.translate import _
+from odoo import tools, SUPERUSER_ID
+from odoo.addons.product import _common
+
+class mrp_production(models.Model):
     _inherit='mrp.production'
 
     # def _dest_id_default_indo(self, cr, uid, ids, context=None):
@@ -20,17 +21,16 @@ class mrp_production(osv.osv):
     #         location_id = False
     #         return self._dest_id_default(cr, uid, ids, context=context)
 
-    _columns = {
-        'date_planned': fields.datetime('Scheduled Date', required=True, select=1, readonly=False, copy=False),
-    }
+    'date_planned': fields.Datetime('Scheduled Date', required=True, select=1, readonly=False, copy=False),
+
     # _defaults = {
     #     'location_dest_id': _dest_id_default_indo
     # }
 
     def _make_consume_line_from_data(self, cr, uid, production, product, uom_id, qty, uos_id, uos_qty, context=None):
-        stock_move = self.pool.get('stock.move')
-        loc_obj = self.pool.get('stock.location')
-        proc_obj = self.pool.get('procurement.group')
+        stock_move = self.env['stock.move']
+        loc_obj = self.env['stock.location']
+        proc_obj = self.env['procurement.group']
         # Internal shipment is created for Stockable and Consumer Products
         if product.type not in ('product', 'consu'):
             return False
@@ -41,10 +41,10 @@ class mrp_production(osv.osv):
         if production.bom_id.routing_id and production.bom_id.routing_id.location_id and production.bom_id.routing_id.location_id.id != source_location_id:
             source_location_id = production.bom_id.routing_id.location_id.id
             prev_move = True
-        if len(proc_obj.search(cr,uid,[('name','=',production.name)])) < 1:
-            proc_rec = proc_obj.create(cr,uid,{'name':production.name,'move_type':'direct'})
+        if len(proc_obj.search([('name','=',production.name)])) < 1:
+            proc_rec = proc_obj.create({'name':production.name,'move_type':'direct'})
         else:
-            proc_rec = proc_obj.search(cr,uid,[('name','=',production.name)])[0]
+            proc_rec = proc_obj.search([('name','=',production.name)])[0]
 
         destination_location_id = production.product_id.property_stock_production.id
         move_id = stock_move.create(cr, uid, {
@@ -89,18 +89,18 @@ class mrp_production(osv.osv):
                 if move_records:
                     for recs in move_records:
                         #hack: has to remove move_dest_id otherwise trying to remove that move dest
-                        move_obj.write(cr,uid, recs, {'move_dest_id':False})
+                        move_obj.write( recs, {'move_dest_id':False})
                         move_obj.action_cancel(cr, uid, recs, context=context)
         return True
 
     def create(self, cr, uid, values, context=None):
         if values.get('routing_id',False):
-            routing = self.pool.get('mrp.routing').browse(cr,uid,values.get('routing_id'))
+            routing = self.pool.get('mrp.routing').browse(values.get('routing_id'))
             if routing.location_dest_id:
                 values['location_dest_id']=routing.location_dest_id.id
-        res = super(mrp_production, self).create(cr,uid,values,context=context)
-        group = self.pool.get('ir.model.data').xmlid_to_object(cr,uid,'indo_sale.auto_add_mo')
-        self.message_subscribe_users(cr,uid,[res],user_ids=group.users.ids)
+        res = super(mrp_production, self).create(values,context=context)
+        group = self.pool.get('ir.model.data').xmlid_to_object('indo_sale.auto_add_mo')
+        self.message_subscribe_users([res],user_ids=group.users.ids)
         return res
 
     # Should be left out in next version
@@ -108,7 +108,7 @@ class mrp_production(osv.osv):
         """ 
         Changing date planned on an MO should change the date of a 
         """
-        for record in self.browse(cr,uid,ids):
+        for record in self.browse(ids):
             if record.move_created_ids:
                 for line in record.move_created_ids:
                     line.write({'date_expected':date_planned})
