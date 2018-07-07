@@ -83,11 +83,12 @@ class mrp_production(models.Model):
     #                     move_obj.action_cancel(cr, uid, recs, context=context)
     #     return True
 
+
     def create(self, cr, uid, values, context=None):
-        if values.get('routing_id',False):
-            routing = self.pool.get('mrp.routing').browse(values.get('routing_id'))
-            if routing.location_dest_id:
-                values['location_dest_id']=routing.location_dest_id.id
+        # if values.get('routing_id',False):
+            # routing = self.pool.get('mrp.routing').browse(values.get('routing_id'))
+            # if routing.location_dest_id:
+            #     values['location_dest_id']=routing.location_dest_id.id
         res = super(mrp_production, self).create(values,context=context)
         group = self.pool.get('ir.model.data').xmlid_to_object('indo_sale.auto_add_mo')
         self.message_subscribe_users([res],user_ids=group.users.ids)
