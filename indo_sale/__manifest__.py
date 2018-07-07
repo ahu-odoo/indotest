@@ -45,3 +45,7 @@
     'auto_install': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+
+#changes to bring in migration scripts
+# view named sale.order.list.select.lawrence needs to inherit from  OR sale.order.remove.filter.lawrence needs to be deactivated
