@@ -12,6 +12,8 @@ from odoo.addons.product import _common
 class mrp_production(models.Model):
     _inherit='mrp.production'
 
+    #ahu-migration note:
+    #this function doens't exist anymore in standard, so won't be called. But need to check later if necessary for Indo
     def _make_consume_line_from_data(self, cr, uid, production, product, uom_id, qty, uos_id, uos_qty, context=None):
         stock_move = self.env['stock.move']
         loc_obj = self.env['stock.location']
@@ -59,24 +61,27 @@ class mrp_production(models.Model):
             stock_move.action_confirm(cr, uid, [prev_move], context=context)
         return move_id
 
-    def action_cancel(self, cr, uid, ids, context=None):
-        super(mrp_production, self).action_cancel(cr, uid, ids, context=context)
-        if context is None:
-            context = {}
-        move_obj = self.pool.get('stock.move')
-        proc_obj = self.pool.get('procurement.order')
-        procgroup_obj = self.pool.get('procurement.group')
-        pick_obj = self.pool.get('stock.picking')
-        for production in self.browse(cr, uid, ids, context=context):
-            group = procgroup_obj.search(cr, uid, [('name', '=', production.name)], context=context)
-            if group:
-                move_records = move_obj.search(cr, uid, [('group_id', '=', group[0]),('state','not in', ['done','cancel'])])
-                if move_records:
-                    for recs in move_records:
-                        #hack: has to remove move_dest_id otherwise trying to remove that move dest
-                        move_obj.write( recs, {'move_dest_id':False})
-                        move_obj.action_cancel(cr, uid, recs, context=context)
-        return True
+    #ahu-migration note:
+    #was done earlier in order to cancel all related moves when cancelling mrp.production. Need to check if v10 solves this in standard.
+    #uncommenting first and let's see how standard feature behave in accordance with Indo
+    # def action_cancel(self, cr, uid, ids, context=None):
+    #     super(mrp_production, self).action_cancel(cr, uid, ids, context=context)
+    #     if context is None:
+    #         context = {}
+    #     move_obj = self.pool.get('stock.move')
+    #     proc_obj = self.pool.get('procurement.order')
+    #     procgroup_obj = self.pool.get('procurement.group')
+    #     pick_obj = self.pool.get('stock.picking')
+    #     for production in self.browse(cr, uid, ids, context=context):
+    #         group = procgroup_obj.search(cr, uid, [('name', '=', production.name)], context=context)
+    #         if group:
+    #             move_records = move_obj.search(cr, uid, [('group_id', '=', group[0]),('state','not in', ['done','cancel'])])
+    #             if move_records:
+    #                 for recs in move_records:
+    #                     #hack: has to remove move_dest_id otherwise trying to remove that move dest
+    #                     move_obj.write( recs, {'move_dest_id':False})
+    #                     move_obj.action_cancel(cr, uid, recs, context=context)
+    #     return True
 
     def create(self, cr, uid, values, context=None):
         if values.get('routing_id',False):
