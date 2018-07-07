@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <template id="report_mrpbomstructure_indo" inherit_id="mrp.report_mrpbomstructure">
+        <template id="report_mrpbomstructure_indo" inherit_id="mrp.mrp_bom_structure_report">
             <data>
                 <xpath expr="//thead//th[last()]" position="after">
                     <th>Sale Delay</th>
