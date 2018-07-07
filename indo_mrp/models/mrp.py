@@ -84,22 +84,22 @@ class mrp_production(models.Model):
     #     return True
 
 
-    def create(self, cr, uid, values, context=None):
+    def create(self, values):
         # if values.get('routing_id',False):
             # routing = self.pool.get('mrp.routing').browse(values.get('routing_id'))
             # if routing.location_dest_id:
             #     values['location_dest_id']=routing.location_dest_id.id
-        res = super(mrp_production, self).create(values,context=context)
-        group = self.pool.get('ir.model.data').xmlid_to_object('indo_sale.auto_add_mo')
-        self.message_subscribe_users([res],user_ids=group.users.ids)
+        res = super(mrp_production, self).create(values)
+        group = env['ir.model.data'].xmlid_to_object('indo_sale.auto_add_mo')
+        res.message_subscribe_users(user_ids=group.users.ids)
         return res
 
-    # Should be left out in next version
-    def on_change_date_planned(self, cr, uid, ids, date_planned, context=None):
-        """ 
-        Changing date planned on an MO should change the date of a 
-        """
-        for record in self:
-            if record.move_created_ids:
-                for line in record.move_created_ids:
-                    line.write({'date_expected':date_planned})
+    # # Should be left out in next version
+    # def on_change_date_planned(self, cr, uid, ids, date_planned, context=None):
+    #     """ 
+    #     Changing date planned on an MO should change the date of a 
+    #     """
+    #     for record in self:
+    #         if record.move_created_ids:
+    #             for line in record.move_created_ids:
+    #                 line.write({'date_expected':date_planned})
