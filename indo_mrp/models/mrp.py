@@ -12,21 +12,6 @@ from odoo.addons.product import _common
 class mrp_production(models.Model):
     _inherit='mrp.production'
 
-    # def _dest_id_default_indo(self, cr, uid, ids, context=None):
-    #     try:
-    #         loc_obj, location_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'indo_stock', 'stock_location_prod_output')
-    #         self.pool.get('stock.location').check_access_rule(cr, uid, [location_id], 'read', context=context)
-    #         return location_id
-    #     except (orm.except_orm, ValueError):
-    #         location_id = False
-    #         return self._dest_id_default(cr, uid, ids, context=context)
-
-    'date_planned': fields.Datetime('Scheduled Date', required=True, select=1, readonly=False, copy=False),
-
-    # _defaults = {
-    #     'location_dest_id': _dest_id_default_indo
-    # }
-
     def _make_consume_line_from_data(self, cr, uid, production, product, uom_id, qty, uos_id, uos_qty, context=None):
         stock_move = self.env['stock.move']
         loc_obj = self.env['stock.location']
@@ -108,7 +93,7 @@ class mrp_production(models.Model):
         """ 
         Changing date planned on an MO should change the date of a 
         """
-        for record in self.browse(ids):
+        for record in self:
             if record.move_created_ids:
                 for line in record.move_created_ids:
                     line.write({'date_expected':date_planned})
