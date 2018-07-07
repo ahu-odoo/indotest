@@ -1,11 +1,4 @@
-import itertools
-import math
-from lxml import etree
-
-from openerp import models, fields, api, _
-from openerp.exceptions import except_orm, Warning, RedirectWarning
-from openerp.tools import float_compare
-import openerp.addons.decimal_precision as dp
+from odoo import api, fields, models, _
 
 class account_invoice(models.Model):
     _inherit = "account.invoice"

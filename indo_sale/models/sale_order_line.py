@@ -1,11 +1,9 @@
-from openerp.osv import fields, osv
-from openerp.tools.translate import _
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
+from odoo import api, fields, models, _
 
-
-class sale_order_line(osv.Model):
+class sale_order_line(models.Model):
     _inherit = "sale.order.line"
 
+    @api.onchange('compute_from_project_qty')
     def product_id_change_with_wh(self, cr, uid, ids, pricelist, product, qty,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
             lang=False, update_tax=True, date_order=False, packaging=False, fiscal_position=False, flag=False, warehouse_id=False, context=None):
