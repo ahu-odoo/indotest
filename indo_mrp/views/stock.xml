@@ -6,7 +6,7 @@
             <field name="inherit_id" ref="stock.report_picking" />
             <field name="priority" eval="20"/>
             <field name="arch" type="xml">
-                <xpath expr="//span[@t-field='move.location_id']" position="after">
+<!--                 <xpath expr="//span[@t-field='move.location_id']" position="after">
 					<t t-if="move.reserved_quant_ids">
 						<br />
                         <t t-set="quantity" t-value="env['stock.quant'].read_group([('reservation_id','=',move.id)],['location_id','qty'],['location_id'])"/>
@@ -15,10 +15,10 @@
                             <t t-raw="line['location_id'][1]"/>: <t t-raw="line['qty']"/>
                         </t>
 					</t>
-                </xpath>
+                </xpath> -->
             </field>
         </record>
-
+<!-- 
         <record model="ir.ui.view" id="mrp_routing_indo">
             <field name="name">mrp.routing.INDO</field>
             <field name="model">mrp.routing</field>
@@ -29,6 +29,6 @@
                     <field name="location_dest_id" />
                 </xpath>
             </field>
-        </record>
+        </record> -->
     </data>
 </openerp>
