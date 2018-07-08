@@ -32,7 +32,7 @@
     'description': """Addition to MRP capability: One picking per MO
     """,
     'data': [
-        'views/stock.xml',
+        #'views/stock.xml',
         'views/mrp_production.xml',
         'report/bom_structure.xml',
     ],
