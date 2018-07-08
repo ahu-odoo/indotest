@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
         <template id="indo_mrp.mrp_production_inherit" inherit_id="mrp.mrp_production_form_view" active="False">
             <data>
@@ -9,4 +9,4 @@
             </data>
         </template>
     </data>
-</openerp>
+</odoo>

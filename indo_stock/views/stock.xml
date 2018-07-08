@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
         <record model="ir.ui.view" id="product_product_report_form">
             <field name="name">product.product.report.INDO</field>
@@ -43,7 +43,7 @@
             </field>
         </record>
 
-         <record model="ir.ui.view" id="stock_picking_force_stock">
+        <record model="ir.ui.view" id="stock_picking_force_stock">
             <field name="name">stock.picking.force.stock.INDO</field>
             <field name="inherit_id" ref="stock.view_picking_form" />
             <field name="priority" eval="20"/>
@@ -55,4 +55,4 @@
             </field>
         </record> 
     </data>
-</openerp>
+</odoo>
