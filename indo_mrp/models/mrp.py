@@ -1,5 +1,4 @@
 import time
-
 import odoo.addons.decimal_precision as dp
 from collections import OrderedDict
 from odoo import api, fields, models, _
@@ -7,7 +6,6 @@ from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools import float_compare, float_is_zero
 from odoo.tools.translate import _
 from odoo import tools, SUPERUSER_ID
-from odoo.addons.product import _common
 
 class mrp_production(models.Model):
     _inherit='mrp.production'
