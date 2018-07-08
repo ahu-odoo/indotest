@@ -7,7 +7,7 @@
             <field name="priority" eval="20"/>
             <field name="model">product.product</field>
             <field name="arch" type="xml">
-                <xpath expr="//page[@string='Sales']" position="after">
+                <xpath expr="//page[@name='sales']" position="after">
 					<page string="Stock Levels">
                         <group>
                             <group>
@@ -51,17 +51,6 @@
             <field name="arch" type="xml">
                  <xpath expr="//button[@name='action_assign']" position="after">
                     <button name="action_assign" states="confirmed" string="Check Indo/STOCK availability" type="object" class="oe_highlight" groups="base.group_user" context="{'from_indo_stock_only':True}"/>
-                </xpath>
-            </field>
-        </record> 
-        <record model="ir.ui.view" id="indo_stock.view_stock_enter_transfer_details_inherit">
-            <field name="name">Enter transfer details INDO</field>
-            <field name="inherit_id" ref="stock.view_stock_enter_transfer_details" />
-            <field name="priority" eval="20"/>
-            <field name="model">stock.transfer_details</field>
-            <field name="arch" type="xml">
-                 <xpath expr="//button[@name='do_detailed_transfer']" position="after">
-                    <button name="do_detailed_transfer" string="_Aplly (from Indo/stock)" type="object" class="oe_highlight" context="{'from_indo_stock_only':True}"/>
                 </xpath>
             </field>
         </record> 

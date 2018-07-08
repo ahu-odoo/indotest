@@ -28,9 +28,9 @@
                     <field name="project_qty" attrs="{'invisible':[('compute_from_project_qty','=',False)]}"/>
                     <field name="sector_id"/>
                 </xpath>
-                <xpath expr="//field[@name='order_line']" position="attributes">
+<!--                 <xpath expr="//field[@name='order_line']" position="attributes">
                     <attribute name="context">"{'project_qty':project_qty}"</attribute>
-                </xpath> 
+                </xpath>  -->
             </field>
         </record>
 

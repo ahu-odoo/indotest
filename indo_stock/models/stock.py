@@ -1,12 +1,10 @@
-import time
-import datetime
-from dateutil.relativedelta import relativedelta
-import openerp.addons.decimal_precision as dp
-from collections import OrderedDict
-from openerp import models, fields, api
-from openerp.tools.translate import _
-from openerp import tools, SUPERUSER_ID
-from openerp.addons.product import _common
+from datetime import datetime
+
+from odoo import api, fields, models
+from odoo.tools.float_utils import float_compare, float_round
+from odoo.tools.translate import _
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.exceptions import UserError
 
 class ProductForecast(models.Model):
     _name = "product.forecast"
