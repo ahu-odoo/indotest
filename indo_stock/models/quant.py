@@ -1,7 +1,7 @@
 from odoo import api, fields, models, _
 
 
-class stock_quant(osv.osv):
+class stock_quant(models.Model):
     _inherit = "stock.quant"
     
     def quants_get_preferred_domain(self, qty, move, ops=False, lot_id=False, domain=None, preferred_domain_list=[]):
@@ -11,7 +11,7 @@ class stock_quant(osv.osv):
             prefered_domain_list=[]
         return super(stock_quant, self).quants_get_preferred_domain(qty, move, ops=False, lot_id=False, domain=None, prefered_domain_list=prefered_domain_list)
 
-class stock_picking(osv.osv):
+class stock_picking(models.Model):
     _inherit = "stock.picking"
 
 
