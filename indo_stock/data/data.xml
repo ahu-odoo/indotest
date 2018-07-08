@@ -16,7 +16,7 @@
 
         <record model="ir.actions.server" id="server_action_reload_stock_forecasts">
             <field name="name">Reload stock forecasts</field>
-            <field name="model_id" ref="mrp_product_cost.model_product_product"/>
+            <field name="model_id" ref="sale.model_product_product"/>
             <field name="state">code</field>
             <field name="code">env['product.product']._process_compute_forecast()</field>
         </record>
