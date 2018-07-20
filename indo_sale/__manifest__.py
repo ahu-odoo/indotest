@@ -28,7 +28,7 @@
     'category': 'Stock',
     'sequence': 18,
     'summary': 'Allows so automatically add/removes followers',
-    'depends': ['stock_account','sale_stock','crm'],
+    'depends': ['stock_account','sale_stock','crm','purchase'],
     'description': """ Adding new features to sale module
     - Allows so automatically add/removes followers
     - Adds the notion of sectors and then rules linked to it
