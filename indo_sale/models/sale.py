@@ -41,6 +41,17 @@ class sale_order(models.Model):
         potential_id = self.search([('partner_id','=',self.partner_id.id), ('client_order_ref','=',self.client_order_ref)])
         self.potential_duplicate = True if len(potential_id)>=2 else False
 
+class product(models.Model):
+    _inherit = "product.template"
+
+    state = fields.Selection([  ('draft', 'In Development'),
+                                ('sellable', 'Normal'),
+                                ('end', 'End of Lifecycle'),
+                                ('obsolete', 'Obsolete')], "Status")
+
+
+
+
 class sale_order_line(models.Model):
     _inherit = "sale.order.line"
 
