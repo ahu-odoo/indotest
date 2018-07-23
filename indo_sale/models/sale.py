@@ -49,9 +49,6 @@ class product(models.Model):
                                 ('end', 'End of Lifecycle'),
                                 ('obsolete', 'Obsolete')], "Status")
 
-
-
-
 class sale_order_line(models.Model):
     _inherit = "sale.order.line"
 
