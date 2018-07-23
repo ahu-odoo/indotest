@@ -88,7 +88,7 @@ class mrp_production(models.Model):
             # if routing.location_dest_id:
             #     values['location_dest_id']=routing.location_dest_id.id
         res = super(mrp_production, self).create(values)
-        group = env['ir.model.data'].xmlid_to_object('indo_sale.auto_add_mo')
+        group = self.env['ir.model.data'].xmlid_to_object('indo_sale.auto_add_mo')
         res.message_subscribe_users(user_ids=group.users.ids)
         return res
 
