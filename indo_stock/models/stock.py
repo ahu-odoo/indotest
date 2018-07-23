@@ -82,8 +82,7 @@ class product_product(models.Model):
             warehouse_id = self.env['stock.warehouse'].search([])[0].id
             location_id = self.env['stock.warehouse'].browse(warehouse_id).lot_stock_id.id
         loc_ids = self.env['stock.location'].search([('location_id','child_of',[location_id])]).ids
-        now = time.strftime('%Y-%m-%d')
-        dt_from = now
+        now = datetime.now()
         names = dict(self.env['product.product'].browse(product_ids).name_get())
         for name in names:
             names[name] = names[name].encode('utf8')
@@ -127,7 +126,7 @@ class product_product(models.Model):
             # import ipdb; ipdb.set_trace()
                 overdue = False
                 if date < now:
-                    date = (datetime.datetime.now() + relativedelta(days=1)).strftime('%Y-%m-%d')
+                    date = (datetime.now() + relativedelta(days=1)).strftime('%Y-%m-%d')
                     overdue = True
                 else:
                     date = date[:10]
