@@ -128,8 +128,8 @@ class product_product(models.Model):
                 if date < now:
                     date = (datetime.now() + relativedelta(days=1)).strftime('%Y-%m-%d')
                     overdue = True
-                else:
-                    date = date[:10]
+                # else:
+                #     date = date.strftime('%Y-%m-%d')
 
                 self.env['product.forecast'].create({
                     "name":prod,
