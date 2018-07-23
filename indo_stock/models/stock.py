@@ -125,7 +125,7 @@ class product_product(models.Model):
             for date,qty,picking_id,origin in products[prod]:
             # import ipdb; ipdb.set_trace()
                 overdue = False
-                if date < now:
+                if date.strptime('%Y-%m-%d') < now:
                     date = (datetime.now() + relativedelta(days=1)).strftime('%Y-%m-%d')
                     overdue = True
                 # else:
