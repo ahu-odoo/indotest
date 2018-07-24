@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_order_status_indo">
+            <field name="name">sale.order.line.status.INDO</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="priority" eval="20"/>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <xpath expr="//tree//field[@name='tax_id']" position="after">
+					<field name="product_status" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_order_form_indo_project_qty">
+            <field name="name">sale.order.form.INDO.project.qty</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority" eval="20"/>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="potential_duplicate" invisible="1" />
+                    <p attrs="{'invisible': [('potential_duplicate','!=',True)]}" class="text-danger">Potential duplicate</p>
+                </xpath>
+                <xpath expr="//field[@name='pricelist_id']" position="after">
+                    <field name="compute_from_project_qty" />
+                    <field name="project_qty" attrs="{'invisible':[('compute_from_project_qty','=',False)]}"/>
+                    <field name="sector_id"/>
+                </xpath>
+<!--                 <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="context">"{'project_qty':project_qty}"</attribute>
+                </xpath>  -->
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="crm_lead_form_indo">
+            <field name="name">crm.lead.form.INDO</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="priority" eval="20"/>
+            <field name="model">crm.lead</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='phone']" position="after">
+                    <field name="sector_id"/>
+                </xpath> 
+            </field>
+        </record>
+    </data>
+</odoo>

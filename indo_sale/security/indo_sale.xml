@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+	    <record id="indo_sale.auto_add_po_so" model="res.groups">
+	        <field name="name">[DO NOT USE] Auto add on PO and SO</field>
+	    </record>
+	   	<record id="indo_sale.auto_add_po" model="res.groups">
+	        <field name="name">Auto add on PO</field>
+	    </record>
+	   	<record id="indo_sale.auto_add_mo" model="res.groups">
+	        <field name="name">Auto add on MO</field>
+	    </record>
+	   	<record id="indo_sale.auto_add_so" model="res.groups">
+	        <field name="name">Auto add on SO</field>
+	    </record>
+	    <record id="user_own_sector" model="ir.rule">
+            <field name="name">A sale user can only see his Leads and SO from his own sector</field>
+            <field ref="sale.model_sale_order" name="model_id"/>
+            <field name="domain_force">[('sector_id','in',user.sector_ids.ids)]</field>
+            <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        </record>
+        <record id="manager_all_sectors" model="ir.rule">
+            <field name="name">A sale manager can see all sectors and </field>
+            <field ref="sale.model_sale_order" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        </record>
+        <record id="user_own_sector_leads" model="ir.rule">
+            <field name="name">A sale user can only see his Leads and SO from his own sector</field>
+            <field ref="crm.model_crm_lead" name="model_id"/>
+            <field name="domain_force">['|',('sector_id','in',user.sector_ids.ids),('sector_id','=',False)]</field>
+            <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        </record>
+        <record id="manager_all_sectors_leads" model="ir.rule">
+            <field name="name">A sale manager can see all sectors and </field>
+            <field ref="crm.model_crm_lead" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+        </record>
+        <!-- CHANGE EXISTING RULES -->
+        <record id="crm.crm_rule_all_lead" model="ir.rule">
+            <field name="groups" eval="[(6, 0, [ref('sales_team.group_sale_manager')])]"/>
+        </record>
+        <record id="sale.sale_order_see_all" model="ir.rule">
+            <field name="groups" eval="[(6, 0, [ref('sales_team.group_sale_manager')])]"/>
+        </record>
+        	
+        	
+	</data>
+</openerp>

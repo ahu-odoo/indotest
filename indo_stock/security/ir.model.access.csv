@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+indo_stock.all_product_forecast,Access to product forecasts,indo_stock.model_product_forecast,base.group_user,1,1,1,1

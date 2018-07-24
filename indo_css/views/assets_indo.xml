@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="indo_assets">
+            <field name="name">assets INDO</field>
+            <field name="inherit_id" ref="web.assets_backend" />
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <xpath expr="//link[last()]" position="after">
+					<link rel="stylesheet" href="/indo_css/static/src/css/base_indo.css"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
