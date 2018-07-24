@@ -1,4 +1,4 @@
-from datetime import datetime, date, time
+from datetime import datetime, date, time, timedelta
 from odoo import api, fields, models
 from odoo.tools.float_utils import float_compare, float_round
 from odoo.tools.translate import _
@@ -106,7 +106,7 @@ class product_product(models.Model):
                    "order by date_expected ASC",(('confirmed','assigned','waiting'),tuple(loc_ids) , product_ids,))
         for (qty, dt, prod_id,picking_id,origin) in self.env.cr.fetchall():
             products.setdefault(prod_id, [])
-            products[prod_id].append((dt,-qty,picking_id,origin))
+            products[prod_id].append((datetime.strptime(dt,'%Y-%m-%d  %H:%M:%S'),-qty,picking_id,origin))
 
         self.env.cr.execute("select sum(r.product_qty * u.factor), r.date_expected, r.product_id, r.picking_id,r.origin "
                    "from stock_move r left join product_uom u on (r.product_uom=u.id) "
@@ -117,16 +117,15 @@ class product_product(models.Model):
                    "order by date_expected ASC",(('confirmed','assigned','waiting'),tuple(loc_ids) ,product_ids,))
         for (qty, dt, prod_id,picking_id,origin) in self.env.cr.fetchall():
             products.setdefault(prod_id, [])
-            products[prod_id].append((dt,qty,picking_id,origin))
-
+            products[prod_id].append((datetime.strptime(dt,'%Y-%m-%d %H:%M:%S'),qty,picking_id,origin))
 
         for prod in products:
             self.env['product.forecast'].search([("name","=",prod)]).unlink()
             for date,qty,picking_id,origin in products[prod]:
             # import ipdb; ipdb.set_trace()
                 overdue = False
-                if date.strptime('%Y-%m-%d') < now:
-                    date = (datetime.now() + relativedelta(days=1)).strftime('%Y-%m-%d')
+                if date < now:
+                    date = (now + timedelta(days=1)).strftime('%Y-%m-%d')
                     overdue = True
                 # else:
                 #     date = date.strftime('%Y-%m-%d')

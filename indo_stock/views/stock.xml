@@ -11,7 +11,10 @@
 					<page string="Stock Levels">
                         <group>
                             <group>
-                                <button name="compute_forecasts" string="Compute Forecasts" type="object" context="{'location_id':12}"/>
+                                <button name="compute_forecasts" string="Compute Forecasts" type="object" />
+                                <!--
+                                    TODO: remove if not needed
+                                 <button name="compute_forecasts" string="Compute Forecasts" type="object" context="{'location_id':12}"/> -->
                             </group>
                             <group>
                                 <field name="stock_treshold"/>
