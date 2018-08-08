@@ -13,9 +13,11 @@ class stock_quant(models.Model):
         return super(stock_quant, self).quants_get_preferred_domain(qty, move, ops=False, lot_id=False, domain=None, prefered_domain_list=prefered_domain_list)
 
 class stock_picking(models.Model):
+    _name = "stock.picking"
     _inherit = "stock.picking"
 
 
+    @api.model
     def create(self, values):    
         picking = super(stock_picking, self).create(values)
         if picking.group_id:
