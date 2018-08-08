@@ -5,16 +5,19 @@ class stock_quant(models.Model):
     _inherit = "stock.quant"
     
     def quants_get_preferred_domain(self, qty, move, ops=False, lot_id=False, domain=None, preferred_domain_list=[]):
+        context = self._context
         if context.get('from_indo_stock_only',False):
             prefered_domain_list=[[('location_id','=',12),('qty','>',0),('propagated_from_id','=',False)]]
         else:
             prefered_domain_list=[]
-        return super(stock_quant, self).quants_get_preferred_domain(qty, move, ops=False, lot_id=False, domain=None, prefered_domain_list=prefered_domain_list)
+        return super(stock_quant, self).quants_get_preferred_domain(qty, move, ops=False, lot_id=False, domain=None, preferred_domain_list=prefered_domain_list)
 
 class stock_picking(models.Model):
+    _name = "stock.picking"
     _inherit = "stock.picking"
 
 
+    @api.model
     def create(self, values):    
         picking = super(stock_picking, self).create(values)
         if picking.group_id:
