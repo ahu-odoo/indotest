@@ -25,10 +25,9 @@ class stock_picking(models.Model):
         return picking
 
     def write(self,values):    
-        picking_rec = super(stock_picking, self).write(values)
-
-        if picking_rec.group_id:
+        #picking_rec = super(stock_picking, self).write(values)
+        if 'group_id' in values:
             sale_ids = sale_obj.search([('procurement_group_id', '=', picking_rec.group_id.id),('user_id','!=',False)])
             if sale_ids:
                 picking_rec.message_subscribe_users(user_ids=[sale_ids[0].user_id.id])  
-        return picking_rec
+        return super(stock_picking, self).write(values)
