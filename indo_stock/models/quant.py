@@ -5,6 +5,7 @@ class stock_quant(models.Model):
     _inherit = "stock.quant"
     
     def quants_get_preferred_domain(self, qty, move, ops=False, lot_id=False, domain=None, preferred_domain_list=[]):
+        context = self._context
         if context.get('from_indo_stock_only',False):
             prefered_domain_list=[[('location_id','=',12),('qty','>',0),('propagated_from_id','=',False)]]
         else:
