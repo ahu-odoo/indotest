@@ -81,7 +81,7 @@ class mrp_production(models.Model):
     #                     move_obj.action_cancel(cr, uid, recs, context=context)
     #     return True
 
-
+    @api.model
     def create(self, values):
         # if values.get('routing_id',False):
             # routing = self.pool.get('mrp.routing').browse(values.get('routing_id'))
