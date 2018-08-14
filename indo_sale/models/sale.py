@@ -39,7 +39,7 @@ class sale_order(models.Model):
     @api.depends('partner_id', 'client_order_ref')
     def _compute_duplicate(self):
         potential_id = self.search([('partner_id','=',self.partner_id.id), ('client_order_ref','=',self.client_order_ref)])
-        self.potential_duplicate = True if len(potential_id)>=2 else False
+        self.potential_duplicate = True if len(potential_id)>=2 and self.client_order_ref else False
 
 class product(models.Model):
     _inherit = "product.template"
