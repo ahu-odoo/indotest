@@ -28,11 +28,12 @@
     'category': 'Stock',
     'sequence': 18,
     'summary': 'Give additionnal stock level information',
-    'depends': ['stock_account'],
+    'depends': ['stock_account', 'base'],
     'description': """Better reporting on product.product form
     """,
     'data': [
         'views/stock.xml',
+        'views/res_partner.xml',
         'data/data.xml',
         'security/ir.model.access.csv',
     ],
